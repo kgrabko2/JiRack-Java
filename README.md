@@ -7,7 +7,7 @@ Url : https://huggingface.co/CMSManhattan/JiRack_GPT5_1b
 
 This file is strictly intended for saving the **initial weights (checkpoint)** of the JiRack GPT model.  
 The model is **"clean"**: it contains no data and has never undergone any pre-training.
-- Powered by CMS Manhattan’s cutting-edge Vision-BERT architecture.
+- Powered by CMS Manhattan’s cutting-edge BERT architecture style .
 
 It is engineered to be a maximally safe and robust base for **training from scratch** for specialized, smaller models, such as:
 
