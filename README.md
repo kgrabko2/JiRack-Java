@@ -93,6 +93,7 @@ See other models with same patterns for read parameters
 
 ---
 ### JiRack RAG System
+- It is microservice architecture with API Gateway and Service Discovery 
 - Framework Spring boot and Google embeddings model for JiRack RAG System with Chatbot and JiRach model deployment with docker scipt 
 - video https://www.youtube.com/watch?v=vHClQu76kMc
 - RAG System https://bitbucket.org/cmsmanhattan/rag/src/main/
