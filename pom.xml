@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.cbsinc.cms.llm.ml</groupId>
+    <artifactId>Jirackkit</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>Jirackkit</name>
+    <description>Jirackkit - DJL 0.35.0 + Java 17 + LLM Ready (US, Nov 16 2025)</description>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.release>17</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <djl.version>0.34.0</djl.version>
+        <pytorch.version>2.7.1</pytorch.version>
+        <pytorch.jni.version>2.7.1-0.35.0</pytorch.jni.version>
+        <slf4j.version>2.0.16</slf4j.version>
+        <exec.mainClass>com.cbsinc.cms.llm.ml.JirackkitApp</exec.mainClass>
+        <native.classifier>win-x86_64</native.classifier> <!-- Windows x64 -->
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>ai.djl</groupId>
+                <artifactId>bom</artifactId>
+                <version>${djl.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- DJL Core -->
+        <dependency>
+	        <groupId>ai.djl</groupId>
+	        <artifactId>api</artifactId>
+        </dependency>
+
+        <!-- Hugging Face Tokenizers -->
+        <dependency>
+	        <groupId>ai.djl.huggingface</groupId>
+	        <artifactId>tokenizers</artifactId>
+        </dependency>
+
+        <!-- ONNX Runtime Engine (Phi-3, Llama, Mistral) -->
+        <dependency>
+	        <groupId>ai.djl.onnxruntime</groupId>
+	        <artifactId>onnxruntime-engine</artifactId>
+        </dependency>
+
+		
+		 <dependency>
+		    <groupId>com.microsoft.onnxruntime</groupId>
+		    <artifactId>onnxruntime</artifactId>
+		    <version>1.20.0</version>
+		</dependency>
+		
+
+		<dependency>
+		    <groupId>com.microsoft.onnxruntime</groupId>
+		    <artifactId>onnxruntime_gpu</artifactId>
+		    <version>1.20.0</version>
+		</dependency>
+        
+       
+
+        <!-- PyTorch Engine (optional) -->
+        <dependency><groupId>ai.djl.pytorch</groupId><artifactId>pytorch-engine</artifactId></dependency>
+
+        <!-- PyTorch Native CPU (Windows x64) -->
+        <dependency>
+            <groupId>ai.djl.pytorch</groupId>
+            <artifactId>pytorch-native-cpu</artifactId>
+            <version>${pytorch.version}</version>
+            <classifier>${native.classifier}</classifier>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- PyTorch JNI -->
+        <dependency>
+            <groupId>ai.djl.pytorch</groupId>
+            <artifactId>pytorch-jni</artifactId>
+            <version>${pytorch.jni.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        
+         <dependency>
+            <groupId>ai.djl</groupId>
+            <artifactId>basicdataset</artifactId>
+        </dependency>
+        
+
+        <!-- Logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>Jirackkit</finalName>
+        <plugins>
+
+            <!-- Compiler -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration><release>17</release></configuration>
+            </plugin>
+
+            <!-- Shade: Single JAR (NO dependency-reduced-pom.xml) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.6.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals><goal>shade</goal></goals>
+                        <configuration>
+                            <finalName>${project.build.finalName}</finalName>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>${exec.mainClass}</mainClass>
+                                </transformer>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                            </transformers>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Run with mvn exec:java -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.5.0</version>
+                <configuration>
+                    <mainClass>${exec.mainClass}</mainClass>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>https://repo1.maven.org/maven2</url>
+        </repository>
+    </repositories>
+</project>
