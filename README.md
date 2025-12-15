@@ -90,8 +90,16 @@ Linear
 
 See other models with same patterns for read parameters 
 
-# install tokenizer before run 
+
 ---
+### JiRack RAG System
+- Framework Spring boot and Google embeddings model for JiRack RAG System with Chatbot and JiRach model deployment with docker scipt 
+- video https://www.youtube.com/watch?v=vHClQu76kMc
+- RAG System https://bitbucket.org/cmsmanhattan/rag/src/main/
+
+
+# install tokenizer before run 
+
 - mkdir -p tokenizer
 - wget -O tokenizer/tokenizer.json https://huggingface.co/gpt2/resolve/main/tokenizer.json
 - wget -O tokenizer/vocab.json https://huggingface.co/gpt2/resolve/main/vocab.json
