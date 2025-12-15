@@ -98,6 +98,31 @@ See other models with same patterns for read parameters
 - video https://www.youtube.com/watch?v=vHClQu76kMc
 - RAG System https://bitbucket.org/cmsmanhattan/rag/src/main/
 
+---
+
+# Copyright Office
+ 
+- From:
+- cop-rc@loc.gov
+- To:
+- konstantin.grabko@yahoo.com
+
+- Mon, Dec 15 at 7:31 AM
+
+- THIS IS AN AUTOMATED EMAIL. PLEASE DO NOT REPLY.
+
+- Thank you for submitting your registration claim using the Electronic Copyright Office (ECO) System.
+
+- The following files were successfully uploaded for service request 1-15058193231
+
+- File Name :jirack_java_llm.zip
+- File Size :15046 KB
+- Date/Time :12/15/2025 7:25:49 AM
+
+- [THREAD ID: 1-6X1C8CQ]
+
+- United States Copyright Office
+
 
 # install tokenizer before run 
 
